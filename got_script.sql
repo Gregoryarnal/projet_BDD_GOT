@@ -1,63 +1,150 @@
-create table personnage (
-    id INT(5) NOT NULL,
-    nom   VARCHAR (50) NOT NULL ,
-    prenom   VARCHAR (50) NOT NULL,
-    tué_par  VARCHAR (50),
-    famille
-    CONSTRAINT user_PK PRIMARY KEY (id)
-)
+-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
+-- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
 
-CREATE TABLE chateau (
-    nom  VARCHAR (50),
-    lieu  VARCHAR (50),
-    CONSTRAINT user_PK PRIMARY KEY (nom)
-)
+-- Modify this code to update the DB schema diagram.
+-- To reset the sample schema, replace everything with
+-- two dots ('..' - without quotes).
 
-create TABLE enfant_de(
-    id INT (50) not null,
-    pere VARCHAR (50),
-    mere VARCHAR (50),
-)
+CREATE TABLE `Personnage` (
+    `id_personnage` int  NOT NULL ,
+    `Name` string  NOT NULL ,
+    `Surname` string  NOT NULL ,
+    `tué_par` int  NOT NULL ,
+    `famille` int  NOT NULL ,
+    `civilisation` int  NOT NULL ,
+    PRIMARY KEY (
+        `id_personnage`
+    )
+);
 
-CREATE TABLE a_couché(
-    personne1 INT(5) NOt null,
-    personne1 INT(5) NOt null
-)
+CREATE TABLE `Chateau` (
+    `id_chateau` int  NOT NULL ,
+    `lieu` string  NOT NULL ,
+    `roi` int  NOT NULL ,
+    `famille` int  NOT NULL ,
+    PRIMARY KEY (
+        `id_chateau`
+    )
+);
 
-create TABLE a_tué(
-    tueur INT(5) not null,
-    tué INT(5)
-)
+CREATE TABLE `Famille` (
+    `id_famille` int  NOT NULL ,
+    `nom` string  NOT NULL ,
+    `histoire` string  NOT NULL ,
+    PRIMARY KEY (
+        `id_famille`
+    )
+);
 
-create TABLE guerre(
-    nom VARCHAR(50) not null,
-    armée1 INT(5)
-)
+CREATE TABLE `Enfant_de` (
+    `id` int  NOT NULL ,
+    `id_pere` int  NOT NULL ,
+    `id_mere` int  NOT NULL 
+);
 
-create table armée(
-    id int(5) Not null,
-    nom VARCHAR(50),
-    dirigeant VARCHAR(50)
-)
+CREATE TABLE `A_couche` (
+    `id1` int  NOT NULL ,
+    `id2` int  NOT NULL 
+);
 
-create table famille(
-    nom VARCHAR(50) not null,
-    histoire VARCHAR(250)
-)
+CREATE TABLE `A_tué` (
+    `tueur` int  NOT NULL ,
+    `tuées` int  NOT NULL 
+);
 
-create table mariée(
-    personnage1 INT(5) not null,
-    personnage2 INT(5) not null,
-    CONSTRAINT mariee1_FK FOREIGN KEY (personnage1) REFERENCES personnage.id,    
-    CONSTRAINT mariee2_FK FOREIGN KEY (personnage2) REFERENCES personnage.id
-)
+CREATE TABLE `Guerre` (
+    `id` int  NOT NULL ,
+    `nom` string  NOT NULL ,
+    `lieu` id  NOT NULL ,
+    `dirigeant` id  NOT NULL ,
+    PRIMARY KEY (
+        `id`
+    )
+);
 
-create table lieu(
+CREATE TABLE `Marie_a` (
+    `époux` int  NOT NULL ,
+    `épouse` int  NOT NULL 
+);
 
-)
+CREATE TABLE `Lieu` (
+    `id_lieu` int  NOT NULL ,
+    `nom` string  NOT NULL ,
+    `sous_le_controle_de` int  NOT NULL ,
+    PRIMARY KEY (
+        `id_lieu`
+    )
+);
 
-create table trompe_avec(
+CREATE TABLE `Armee` (
+    `id` int  NOT NULL ,
+    `nom` string  NOT NULL ,
+    `chef` int  NOT NULL ,
+    PRIMARY KEY (
+        `id`
+    )
+);
 
-)
+-- Free plan table limit reached. SUBSCRIBE for more.
 
-create table 
+
+
+ALTER TABLE `Personnage` ADD CONSTRAINT `fk_Personnage_famille` FOREIGN KEY(`famille`)
+REFERENCES `Famille` (`id_famille`);
+
+ALTER TABLE `Personnage` ADD CONSTRAINT `fk_Personnage_civilisation` FOREIGN KEY(`civilisation`)
+REFERENCES `Table 11` (`...`);
+
+ALTER TABLE `Chateau` ADD CONSTRAINT `fk_Chateau_roi` FOREIGN KEY(`roi`)
+REFERENCES `Personnage` (`id_personnage`);
+
+ALTER TABLE `Chateau` ADD CONSTRAINT `fk_Chateau_famille` FOREIGN KEY(`famille`)
+REFERENCES `Famille` (`id_famille`);
+
+ALTER TABLE `Enfant_de` ADD CONSTRAINT `fk_Enfant_de_id` FOREIGN KEY(`id`)
+REFERENCES `Personnage` (`id_personnage`);
+
+ALTER TABLE `Enfant_de` ADD CONSTRAINT `fk_Enfant_de_id_pere` FOREIGN KEY(`id_pere`)
+REFERENCES `Personnage` (`id_personnage`);
+
+ALTER TABLE `Enfant_de` ADD CONSTRAINT `fk_Enfant_de_id_mere` FOREIGN KEY(`id_mere`)
+REFERENCES `Personnage` (`id_personnage`);
+
+ALTER TABLE `A_couche` ADD CONSTRAINT `fk_A_couche_id1` FOREIGN KEY(`id1`)
+REFERENCES `Personnage` (`id_personnage`);
+
+ALTER TABLE `A_couche` ADD CONSTRAINT `fk_A_couche_id2` FOREIGN KEY(`id2`)
+REFERENCES `Personnage` (`id_personnage`);
+
+ALTER TABLE `A_tué` ADD CONSTRAINT `fk_A_tué_tueur` FOREIGN KEY(`tueur`)
+REFERENCES `Personnage` (`id_personnage`);
+
+ALTER TABLE `A_tué` ADD CONSTRAINT `fk_A_tué_tuées` FOREIGN KEY(`tuées`)
+REFERENCES `Personnage` (`id_personnage`);
+
+ALTER TABLE `Guerre` ADD CONSTRAINT `fk_Guerre_lieu` FOREIGN KEY(`lieu`)
+REFERENCES `Lieu` (`id_lieu`);
+
+ALTER TABLE `Guerre` ADD CONSTRAINT `fk_Guerre_dirigeant` FOREIGN KEY(`dirigeant`)
+REFERENCES `Personnage` (`id_personnage`);
+
+ALTER TABLE `Marie_a` ADD CONSTRAINT `fk_Marie_a_époux` FOREIGN KEY(`époux`)
+REFERENCES `Personnage` (`id_personnage`);
+
+ALTER TABLE `Marie_a` ADD CONSTRAINT `fk_Marie_a_épouse` FOREIGN KEY(`épouse`)
+REFERENCES `Personnage` (`id_personnage`);
+
+ALTER TABLE `Lieu` ADD CONSTRAINT `fk_Lieu_sous_le_controle_de` FOREIGN KEY(`sous_le_controle_de`)
+REFERENCES `Personnage` (`id_personnage`);
+
+ALTER TABLE `Armee` ADD CONSTRAINT `fk_Armee_chef` FOREIGN KEY(`chef`)
+REFERENCES `Personnage` (`id_personnage`);
+
+-- Free plan table limit reached. SUBSCRIBE for more.
+
+
+
+-- Free plan table limit reached. SUBSCRIBE for more.
+
+
+
