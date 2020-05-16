@@ -85,10 +85,8 @@ CREATE TABLE Chateau (
     nom VARCHAR(50),
     lieu varchar(50)  NOT NULL ,
     maison INT(5) ,
-    armee int(5)
     CONSTRAINT pk_id_cheateau PRIMARY KEY (id_chateau),
-    CONSTRAINT fk_famille FOREIGN KEY(maison) REFERENCES Maison (id_famille),
-    CONSTRAINT fk_armee FOREIGN KEY(armee) REFERENCES Armee (id_armee),
+    CONSTRAINT fk_famille FOREIGN KEY(maison) REFERENCES Maison (id_maison)
 );
 
 
@@ -373,6 +371,9 @@ INSERT INTO region (nom, id_continent) values ("Îles de Fer", (select id_contin
 INSERT INTO region (nom, id_continent) values ("Baie des Serfs", (select id_continent from continent where nom = "Westeros"));
 INSERT INTO region (nom, id_continent) values ("Cité libres", (select id_continent from continent where nom = "Essos"));
 INSERT INTO region (nom, id_continent) values ("Désert Rouge", (select id_continent from continent where nom = "Essos"));
+INSERT INTO region (nom, id_continent) values ("Baie de la Nera", (select id_continent from continent where nom = "Westeros"));
+INSERT INTO region (nom, id_continent) values ("Le Mur", (select id_continent from continent where nom = "Westeros"));
+INSERT INTO region (nom, id_continent) values ("Dorne", (select id_continent from continent where nom = "Westeros"));
 
 INSERT INTO ville (nom, region) values ("Ancienne Valyria", 8);
 INSERT INTO ville (nom, region) values ("Asshaï", (select id_region from region where nom = "Mer Dothrak"));
@@ -394,15 +395,55 @@ INSERT INTO ville (nom, region) values ("Villevieille", (select id_region from r
 INSERT INTO ville (nom, region) values ("Volantis", (select id_region from region where nom = "Cité libres"));
 INSERT INTO ville (nom, region) values ("Yunkaï", (select id_region from region where nom = "Baie des Serfs"));
 
-INSERT INTO chateau (nom, lieu, maison ) values ("Accalmie", (select id_continent from continent where nom like "Westeros"), (select id_famille from famille where nom like "Baratheon"));
-INSERT INTO chateau (nom, lieu, maison ) values ("Castamere", (select id_continent from continent where nom like "Westeros"));
-INSERT INTO chateau (nom, lieu, maison ) values ("Castelfoyer", (select id_continent from continent where nom like "Westeros"), (select id_famille from famille where nom like "Castelfoyer"));
-INSERT INTO chateau (nom, lieu, maison ) values ("Castral Roc", (select id_continent from continent where nom like "Westeros"), (select id_famille from famille where nom like "Lannister"));
-INSERT INTO chateau (nom, lieu, armee ) values ("Châteaunoir", (select id_continent from continent where nom like "Westeros"), (select id_armee from Armee where nom like "Garde de Nuit"));
-INSERT INTO chateau (nom, lieu, maison ) values ("Donjon des Clegane", (select id_continent from continent where nom like "Westeros"), (select id_famille from famille where nom like "Clegane"));
-INSERT INTO chateau (nom, lieu, armee ) values ("Donjon Rouge", (select id_continent from continent where nom like "Westeros"), (select id_armee from Armee where nom like "Garde Royal"));
-INSERT INTO chateau (nom, lieu, maison ) values ("Hautjardin", (select id_continent from continent where nom like "Westeros"), (select id_famille from famille where nom like "Broon"));
-INSERT INTO chateau (nom, lieu, maison ) values ("Winterfell", (select id_continent from continent where nom like "Westeros"), (select id_famille from famille where nom like "Stark"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Accalmie", (select id_region from region where nom like "Terres de l'Orage"), (select id_maison from maison where nom like "Baratheon"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Castamere", (select id_region from region where nom like "Terres de l'Ouest"), (select id_maison from maison where nom like "Reyne"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Castelfoyer", (select id_region from region where nom like "Terres de la Couronne"), (select id_maison from maison where nom like "Castelfoyer"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Castral Roc", (select id_region from region where nom like "Terres de l'Ouest"), (select id_maison from maison where nom like "Lannister"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Cendregué", (select id_region from region where nom like "Bief"), (select id_maison from maison where nom like "Cendregué"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Cendremarc", (select id_region from region where nom like "Terres de l'Ouest"), (select id_maison from maison where nom like "Marpheux"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Chutebourg", (select id_region from region where nom like "Bief"), (select id_maison from maison where nom like "Marpheux"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Château Tarbeck", (select id_region from region where nom like "Terres de l'Ouest"), (select id_maison from maison where nom like "Tarbeck"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Châteaunoir", (select id_region from region where nom like "Nord"), (select id_maison from maison where nom like "Garde de Nuit"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Chênes-en-fer", (select id_region from region where nom like "Val d'Arryn"), (select id_maison from maison where nom like "Vanbois"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Citadelle", (select id_region from region where nom like "Bief"), (select id_maison from maison where nom like "Vanbois"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Corbois", (select id_region from region where nom like "Nord"), (select id_maison from maison where nom like "Corbois"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Corcolline", (select id_region from region where nom like "Bief"), (select id_maison from maison where nom like "Tarly"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Corneilla", (select id_region from region where nom like "Conflans"), (select id_maison from maison where nom like "Nerbosc"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Darry", (select id_region from region where nom like "Conflans"), (select id_maison from maison where nom like "Darry"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Denfert", (select id_region from region where nom like "Dorne"), (select id_maison from maison where nom like "Uller"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Dent d'Or", (select id_region from region where nom like "Terres de l'Ouest"), (select id_maison from maison where nom like "Lefford"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Donjon des Clegane", (select id_region from region where nom like "Terres de l'Ouest"), (select id_maison from maison where nom like "Clegane"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Donjon Rouge", (select id_region from region where nom like "Terres de la Couronne"), (select id_maison from maison where nom like "Roi des Sept Couronnes"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Ferboys", (select id_region from region where nom like "Dorne"), (select id_maison from maison where nom like "Ferboys"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Fort Nox", (select id_region from region where nom like "Le Mur"), (select id_maison from maison where nom like "Ferboys"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Fort-Griseaux", (select id_region from region where nom like "Neck"), (select id_maison from maison where nom like "Reed"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Fort-Levant", (select id_region from region where nom like "Le Mur"), (select id_maison from maison where nom like "Garde de Nuit"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Fort-Terreur", (select id_region from region where nom like "Nord"), (select id_maison from maison where nom like "Bolton"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Griposte", (select id_region from region where nom like "Le Mur"), (select id_maison from maison where nom like "Bolton"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Harrenhal", (select id_region from region where nom like "Conflans"), (select id_maison from maison where nom like "Baelish"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Hautjardin", (select id_region from region where nom like "Bief"), (select id_maison from maison where nom like "de Bronn"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Ironrath", (select id_region from region where nom like "Nord"), (select id_maison from maison where nom like "Whitehill"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Jardins Aquatiques", (select id_region from region where nom like "Dorne"), (select id_maison from maison where nom like "Ellaria Sand"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Karhold", (select id_region from region where nom like "Nord"), (select id_maison from maison where nom like "Karstark"));
+INSERT INTO chateau (nom, lieu, maison ) values ("La Vesprée", (select id_region from region where nom like "Terres de l'Orage"), (select id_maison from maison where nom like "Torth"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Lancehélion", (select id_region from region where nom like "Dorne"), (select id_maison from maison where nom like "Ellaria Sand"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Les Eyrié", (select id_region from region where nom like "Val d'Arryn"), (select id_maison from maison where nom like "Arryn"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Les Jumeaux", (select id_region from region where nom like "Conflans"), (select id_maison from maison where nom like "Frey"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Les Météores", (select id_region from region where nom like "Dorne"), (select id_maison from maison where nom like "Dayne"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Lestival", (select id_region from region where nom like "Terres de l'Orage"), (select id_maison from maison where nom like "Dayne"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Manoir de Craster", (select id_region from region where nom like "Au-delà du Mur"), (select id_maison from maison where nom like "Craster"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Moat Cailin", (select id_region from region where nom like "Nord"), (select id_maison from maison where nom like "Stark"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Motte-la-Forêt", (select id_region from region where nom like "Nord"), (select id_maison from maison where nom like "Glover"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Peyredragon", (select id_region from region where nom like "Baie de la Néra"), (select id_maison from maison where nom like "Targaryen"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Pierheaume", (select id_region from region where nom like "Terres de l'Orage"), (select id_maison from maison where nom like "Swann"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Pyk", (select id_region from region where nom like "Îles de Fer"), (select id_maison from maison where nom like "Greyjoy"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Roches-aux-runes", (select id_region from region where nom like "Val d'Arryn"), (select id_maison from maison where nom like "Royce"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Tour Ombreuse", (select id_region from region where nom like "Le Mur"), (select id_maison from maison where nom like "Garde de Nuit"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Vivesaigues", (select id_region from region where nom like "Conflans"), (select id_maison from maison where nom like "Tully"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Winterfell", (select id_region from region where nom like "Nord"), (select id_maison from maison where nom like "Stark"));
+INSERT INTO chateau (nom, lieu, maison ) values ("Âtre-lès-Confins", (select id_region from region where nom like "Nord"), (select id_maison from maison where nom like "Omble"));
+
+
 
 INSERT INTO Personnage (nom, prenom,  nom_acteur, prenom_acteur, mort, civilisation) values ("Marpheux", "Addam", "B.J.", "Hogg", "NULL", (select id_civilisation from Civilisation where nom like "Andals"));
 INSERT INTO Personnage (nom, prenom,  nom_acteur, prenom_acteur, mort, civilisation) values ("Humble", "Adrack", "Jody", "Halse", "Ramsay Snow", (select id_civilisation from Civilisation where nom like "Fer-nés"));
@@ -2159,3 +2200,5 @@ INSERT INTO Enfant_de (id_enfant, id_mere, id_pere) values ((select id_personnag
 INSERT INTO Enfant_de (id_enfant, id_mere, id_pere) values ((select id_personnage from personnage where prenom like "Yoren"), (select id_personnage from personnage where nom like "Greyjoy" and prenom like "Alannys"), (select id_personnage from personnage where nom like "Greyjoy" and prenom like "Balon"));
 INSERT INTO Enfant_de (id_enfant, id_mere, id_pere) values ((select id_personnage from personnage where prenom like "Zanrush"), (select id_personnage from personnage where nom like "Greyjoy" and prenom like "Alannys"), (select id_personnage from personnage where nom like "Greyjoy" and prenom like "Balon"));
 INSERT INTO Enfant_de (id_enfant, id_mere, id_pere) values ((select id_personnage from personnage where nom like "Veneur" and prenom like "Éon"), (select id_personnage from personnage where nom like "Greyjoy" and prenom like "Alannys"), (select id_personnage from personnage where nom like "Greyjoy" and prenom like "Balon"));
+
+
