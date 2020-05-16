@@ -10,6 +10,7 @@ armees= ["Compagnie Dorée", "Garde de Nuit", "Immaculés", "Moineaux", "Foi Mil
 perso = open("personnage.sql", "w")
 allegeance_famille = open("Allegeance_maison.sql", "w")
 allegeance_camp = open("Allegeance_camp.sql", "w")
+enfant_de = open("enfant_de.sql", "w")
 cpt = 0
 for page in pages:
     requete = requests.get(page)
@@ -34,6 +35,28 @@ for page in pages:
                     acteur = data_acteur.div.a.text
                 except:
                     acteur = None
+
+
+                try:
+                    data_parents = soup_perso.find("div", {"data-source": "Parents"})
+                    parents = data_parents.find('div')
+                    
+                    if "père" in parents.text and "mère" in parents.text:
+                        data_parent = parents.find_all('a')  
+                        liste_parents = [elt.string.strip() for elt in data_parent]
+
+                    elif "père" in parents.text:
+                        pere = parents.a.text.split(" ")
+                        mere = "NULL"
+                        liste_parents = None
+                    else:
+                        mere = parents.a.text.split(" ")
+                        pere = "NULL"
+                        liste_parents = None
+
+
+                except Exception as e:
+                    parents = "NULL"
 
                 try:
                     data_Allegeance = soup_perso.find("div", {"data-source": "Allégeance"})
@@ -80,7 +103,7 @@ for page in pages:
                     nom = data[1]
                     prenom = data[0]
                 else:
-                    if data[1] == "I" or data[1] == "II"or data[1] == "III":
+                    if data[1] == "I" or data[1] == "II"or data[1] == "III" or data[1] == "IV" or data[1] == "V":
                         nom = data[2]
                         prenom = data[0] + " " + data[1]
                     else:
@@ -98,17 +121,65 @@ for page in pages:
                 prenom_acteur = ""
                 nom_acteur = ""
 
+                
                 for data in liste_data:
                     if data.startswith("Maison"):
                         allegeance_famille.write("INSERT INTO Allegeance_maison (id_personnage, id_maison) values ((select id_personnage from personnage where nom like \""+nom+"\" and prenom like  \""+prenom+"\"), (select id_maison from Maison where nom like \""+data[7:]+"\"));\r\n")
                     else:
                         allegeance_camp.write("INSERT INTO Allegeance_camp (id_personnage, id) values ((select id_personnage from personnage where nom like \""+nom+"\" and prenom like  \""+prenom+"\"), \""+data+"\");\r\n")
 
+                if liste_parents is not None:
+                    pere = liste_parents[0].split(" ")
+                    mere = liste_parents[1].split(" ")
+
+
+                if pere is not "NULL":
+                    if len(pere) == 1:
+                        prenom_pere = pere[0]
+                        nom_pere = ""
+                    elif len(pere) == 2 :
+                        if pere[1] == "I" or pere[1] == "II"or pere[1] == "III" or pere[1] == "IV" or pere[1] == "V":
+                            prenom_pere = pere[0] + " " + pere[1]
+                            nom_pere = "NULL"
+                        else:
+                            nom_pere = pere[1]
+                            prenom_pere = pere[0]
+                    else:
+                        if pere[1] == "I" or pere[1] == "II"or pere[1] == "III" or pere[1] == "IV" or pere[1] == "V":
+                            nom_pere = pere[2]
+                            prenom_pere = pere[0] + " " + pere[1]
+                        else:
+                            nom_pere = pere[1] + " " + pere[2]
+                            prenom_pere = pere[0]
+
+                if mere is not "NULL":  
+                    if len(mere) == 1:
+                        prenom_mere = mere[0]
+                        nom_mere = ""
+                    elif len(mere) == 2 :
+                        nom_mere = mere[1]
+                        prenom_mere = mere[0]
+                    else:
+                        if mere[1] == "I" or mere[1] == "II"or mere[1] == "III" or mere[1] == "IV" or mere[1] == "V":
+                            nom_mere = mere[2]
+                            prenom_mere = mere[0] + " " + mere[1]
+                        else:
+                            nom_mere = mere[1] + " " + mere[2]
+                            prenom_mere = mere[0]
+
+                if pere is "NULL" and mere is not "NULL":
+                    enfant_de.write("INSERT INTO Enfant_de (id_enfant, id_mere) values ((select id_personnage from personnage where nom like \""+nom+"\" and prenom like \""+prenom+"\"), (select id_personnage from personnage where nom like \""+nom_mere+"\" and prenom like \""+prenom_mere+"\"));\r\n")
+                elif mere is "NULL" and pere is not "NULL":  
+                    enfant_de.write("INSERT INTO Enfant_de (id_enfant, id_pere) values ((select id_personnage from personnage where nom like \""+nom+"\" and prenom like \""+prenom+"\"), (select id_personnage from personnage where nom like \""+nom_pere+"\" and prenom like \""+prenom_pere+"\"));\r\n")
+                else:
+                    enfant_de.write("INSERT INTO Enfant_de (id_enfant, id_mere, id_pere) values ((select id_personnage from personnage where nom like \""+nom+"\" and prenom like \""+prenom+"\"), (select id_personnage from personnage where nom like \""+nom_mere+"\" and prenom like \""+prenom_mere+"\"), (select id_personnage from personnage where nom like \""+nom_pere+"\" and prenom like \""+prenom_pere+"\"));\r\n")
+
                 print(cpt)
                 cpt += 1
         except Exception as e:
-            print(e)
+            pass
 print("fin")
 perso.close()
 allegeance_famille.close()
 allegeance_camp.close()
+enfant_de.close()

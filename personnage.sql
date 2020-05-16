@@ -2,9 +2,9 @@ INSERT INTO Personnage (nom, prenom,  nom_acteur, prenom_acteur, mort, civilisat
 INSERT INTO Personnage (nom, prenom,  nom_acteur, prenom_acteur, mort, civilisation) values ("Humble", "Adrack", "Jody", "Halse", "Ramsay Snow", (select id_civilisation from Civilisation where nom like "Fer-nés"));
 INSERT INTO Personnage (nom, prenom,mort, civilisation) values ("Feunoyr", "Aegon",  "NULL", (select id_civilisation from Civilisation where nom like "Fer-nés"));
 INSERT INTO Personnage (nom, prenom,mort, civilisation) values ("Targaryen", "Aegon I",  "NULL", (select id_civilisation from Civilisation where nom like "Valyriens"));
-INSERT INTO Personnage (nom, prenom,mort, civilisation) values ("IV Targaryen", "Aegon",  "NULL", (select id_civilisation from Civilisation where nom like "Valyriens"));
+INSERT INTO Personnage (nom, prenom,mort, civilisation) values ("Targaryen", "Aegon IV",  "NULL", (select id_civilisation from Civilisation where nom like "Valyriens"));
 INSERT INTO Personnage (nom, prenom,mort, civilisation) values ("Targaryen", "Aegon",  "Sac de Port-Réal", (select id_civilisation from Civilisation where nom like "Valyriens"));
-INSERT INTO Personnage (nom, prenom,mort, civilisation) values ("V Targaryen", "Aegon",  "Tragédie de Lestival", (select id_civilisation from Civilisation where nom like "Valyriens"));
+INSERT INTO Personnage (nom, prenom,mort, civilisation) values ("Targaryen", "Aegon V",  "Tragédie de Lestival", (select id_civilisation from Civilisation where nom like "Valyriens"));
 INSERT INTO Personnage (nom, prenom,mort, civilisation) values ("Rivers", "Aegor",  "NULL", (select id_civilisation from Civilisation where nom like "Valyriens"));
 INSERT INTO Personnage (nom, prenom,mort, civilisation) values ("Arryn", "Aemma",  "NULL", (select id_civilisation from Civilisation where nom like "Andals"));
 INSERT INTO Personnage (prenom, nom_acteur, prenom_acteur, mort, civilisation) values ("Aemon", "Peter", "Vaughan", "NULL", (select id_civilisation from Civilisation where nom like "Valyriens"));
@@ -398,7 +398,7 @@ INSERT INTO Personnage (prenom, nom_acteur, prenom_acteur, mort, civilisation) v
 INSERT INTO Personnage (prenom, nom_acteur, prenom_acteur, mort, civilisation) values ("Ros", "Esmé", "Bianco", "Joffrey Baratheon", (select id_civilisation from Civilisation where nom like "Nordiens"));
 INSERT INTO Personnage (nom, prenom,  nom_acteur, prenom_acteur, mort, civilisation) values ("Tully", "Roslin", "Alexandra", "Dowling", "NULL", (select id_civilisation from Civilisation where nom like "Andals"));
 INSERT INTO Personnage (prenom, nom_acteur, prenom_acteur, mort, civilisation) values ("Rossart", "Alexandra", "Dowling", "Jaime Lannister", (select id_civilisation from Civilisation where nom like "Andals"));
-INSERT INTO Personnage (nom, prenom,mort, civilisation) values ("IV Bolton", "Royce",  "NULL", (select id_civilisation from Civilisation where nom like "Nordiens"));
+INSERT INTO Personnage (nom, prenom,mort, civilisation) values ("Bolton", "Royce IV",  "NULL", (select id_civilisation from Civilisation where nom like "Nordiens"));
 INSERT INTO Personnage (nom, prenom,  nom_acteur, prenom_acteur, mort, civilisation) values ("Rivers", "Ryger", "Bryan", "McCaugherty", "Arya Stark", (select id_civilisation from Civilisation where nom like "Andals"));
 INSERT INTO Personnage (nom, prenom,mort, civilisation) values ("Florent", "Rylene",  "NULL", (select id_civilisation from Civilisation where nom like "Andals"));
 INSERT INTO Personnage (prenom, nom_acteur, prenom_acteur, mort, civilisation) values ("Sally", "Trixiebelle", "Harrowell", "NULL", (select id_civilisation from Civilisation where nom like "Andals"));
