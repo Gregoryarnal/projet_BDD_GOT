@@ -119,9 +119,11 @@ CREATE TABLE A_tué (
 
 CREATE TABLE Guerre (
     id_guerre INT  NOT NULL AUTO_INCREMENT,
-    nom varchar(50)  NOT NULL ,
-    lieu_id  INT NOT NULL ,
-    dirigeant_id  INT NOT NULL ,
+    nom varchar(250)  NOT NULL ,
+    id_lieu  INT NOT NULL ,
+    dirigeant  INT ,
+    annee_deb varchar(250),
+    annee_fin varchar(250),
     CONSTRAINT pk_id_guerre PRIMARY KEY (id_guerre)
 );
 
@@ -442,6 +444,45 @@ INSERT INTO chateau (nom, lieu, maison ) values ("Tour Ombreuse", (select id_reg
 INSERT INTO chateau (nom, lieu, maison ) values ("Vivesaigues", (select id_region from region where nom like "Conflans"), (select id_maison from maison where nom like "Tully"));
 INSERT INTO chateau (nom, lieu, maison ) values ("Winterfell", (select id_region from region where nom like "Nord"), (select id_maison from maison where nom like "Stark"));
 INSERT INTO chateau (nom, lieu, maison ) values ("Âtre-lès-Confins", (select id_region from region where nom like "Nord"), (select id_maison from maison where nom like "Omble"));
+
+select * from chateau;
+
+
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Chasse au Vautour", (select id_region from region where nom like "Dorne"),"An 37[1]","An 37[1]");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Chute du Roi de la Nuit", (select id_chateau from chateau where nom like "Fort Nox"),"An 37[1]","An 37[1]");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Conflit Au-delà du Mur", (select id_region from region where nom like "Au-delà du Mur"),"Vers l'an 280 (Peuple libre)[1]An 298 (intervention de la Garde de Nuit)","An 304");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Conflit entre Forrester et Whitehill (A Telltale Games Series)", (select id_region from region where nom like "Nord"),"An 301","An 301");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Conquête de Dorne", (select id_region from region where nom like "Dorne"),"An 157","An 161");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Danse des Dragons", (select id_continent from continent where nom like "Westeros"),"An 129","An 131");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Défi de Sombreval", (select id_region from region where nom like "Terres de la Couronne"),"An 129","An 131");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Grande Guerre", (select id_region from region where nom like "Nord"),"An 304","An 305");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Guerre de la Conquête", (select id_continent from continent where nom like "Westeros"),"An 2 (avant la Conquête)","An 1");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Guerre de Mille Ans", (select id_region from region where nom like "Nord"),"An 41","An 48");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Guerre des Cinq Rois", (select id_continent from continent where nom like "Westeros"),"An 298","An 300 (Phase I)An 302 (Phase II)");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Guerre des Premiers Hommes et des Enfants de la Forêt", (select id_continent from continent where nom like "Westeros"),"12 000 (avant la Conquête)","10 000 (avant la Conquête)");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Guerres Ghiscaries", (select id_region from region where nom like "Péninsule valyrienne"),"6 000 (avant la Conquête)","5 000 (avant la Conquête)");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Intrigues d'entre-deux guerres", (select id_continent from continent where nom like "Westeros"),"An 302","An 303 (À Port-Réal)An 304 (Au Nord)");
+
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Invasion de Westeros par Daenerys Targaryen", (select id_continent from continent where nom like "Westeros"),"An 304","An 305");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Invasion des Andals", (select id_continent from continent where nom like "Westeros"),"6 000 (avant la Conquête)","4 000 (avant la Conquête)");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Libération de la Baie des Serfs", (select id_region from region where nom like "Baie des Serfs"),"An 300","An 303");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Longue Nuit", (select id_continent from continent where nom like "Westeros"),"8 000 (avant la Conquête)","8 000 (avant la Conquête)");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Première Guerre Dornienne", (select id_region from region where nom like "Dorne"),"An 4","An 13");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Rébellion de Robert", (select id_continent from continent where nom like "Westeros"),"An 280","An 281 (Port-Réal)An 282 (Peyredragon)");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Rébellion Feunoyr", (select id_continent from continent where nom like "Westeros"),"An 195","An 196");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Rébellion Greyjoy", (select id_region from region where nom like "Îles de Fer"),"An 289","An 289");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Rébellion Reyne", (select id_region from region where nom like "Terres de l'Ouest"),"An 260","An 260");
+INSERT INTO Guerre (nom, id_lieu,annee_deb , annee_fin) values ("Unification du Nord", (select id_region from region where nom like "Nord"),"8 000 (avant la Conquête)","6 000 (avant la Conquête)");
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2200,5 +2241,4 @@ INSERT INTO Enfant_de (id_enfant, id_mere, id_pere) values ((select id_personnag
 INSERT INTO Enfant_de (id_enfant, id_mere, id_pere) values ((select id_personnage from personnage where prenom like "Yoren"), (select id_personnage from personnage where nom like "Greyjoy" and prenom like "Alannys"), (select id_personnage from personnage where nom like "Greyjoy" and prenom like "Balon"));
 INSERT INTO Enfant_de (id_enfant, id_mere, id_pere) values ((select id_personnage from personnage where prenom like "Zanrush"), (select id_personnage from personnage where nom like "Greyjoy" and prenom like "Alannys"), (select id_personnage from personnage where nom like "Greyjoy" and prenom like "Balon"));
 INSERT INTO Enfant_de (id_enfant, id_mere, id_pere) values ((select id_personnage from personnage where nom like "Veneur" and prenom like "Éon"), (select id_personnage from personnage where nom like "Greyjoy" and prenom like "Alannys"), (select id_personnage from personnage where nom like "Greyjoy" and prenom like "Balon"));
-
 
